@@ -6,6 +6,10 @@ app = Flask(__name__)
 def home():  #連到根目錄要執行的行為
     return "Hello, World"
 
+@app.route("/<name>")
+def hello(name):
+    return "Hello, " + name + ". How are you?"
+
 @app.route("/about")
 def about():  #連到.../about 要執行的行為
     return "About"
