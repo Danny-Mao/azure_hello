@@ -14,17 +14,5 @@ def hello(name):
 def about():  #連到.../about 要執行的行為
     return "About"
 
-@app.route("/test1")
-def html_test():
-    return """
-        <!DOCTYPE html>
-        <head>
-            <title>myweb</title>
-        </head>
-        <body>
-            test web <input>
-        </body>
-    """
-
 if __name__ == "__name__":  #只在flask框架啟動時執行
     app.run()
