@@ -1,13 +1,13 @@
-from flask import Flask
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
 @app.route("/")  #設定根目錄
 def home():  #連到根目錄要執行的行為
-    return "Hello, World"
+    return render_template("form.html")
 
-@app.route("/<name>")
-def hello(name):
+@app.route("/<name>")  #角括號內可取任意名稱(變數名稱規則)
+def hello(name):  #參數同上一行角括號內
     return "Hello, " + name + ". How are you?"
 
 @app.route("/about")
