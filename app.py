@@ -30,7 +30,6 @@ def aml():
 
     body = str.encode(json.dumps(data))
     url = "http://7ac69e26-f176-43dc-b695-668fd9800c4b.eastasia.azurecontainer.io/score"
-    #api_key = "vtGt7uknpxFHb8P40n1AimaYMFvP2wdy"
     api_key = os.environ.get("AML_API_KEY")
     headers =  {"Content-Type": "application/json",
         "Authorization": ("Bearer " + api_key)}
