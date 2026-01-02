@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template
 import json
 import urllib
-import os
 
 app = Flask(__name__)
 
