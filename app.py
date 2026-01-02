@@ -38,7 +38,7 @@ def aml():
 
     try:
         response = urllib.request.urlopen()
-        result = json.load(response.read())
+        result = json.loads(response.read())
         htmlstr = htmlstr + "結果為"
         if str(result["Results"]["WebServiceOutput0"][0]["Scored Labels"]) == "0.0":
             htmlstr = htmlstr + ": 您沒有糠尿病</body></html>"
