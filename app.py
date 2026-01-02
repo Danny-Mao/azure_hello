@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import json
 import urllib
+import os
 
 app = Flask(__name__)
 
@@ -14,13 +15,13 @@ def aml():
         "Inputs": {
             "input1": [{
                 "Pregnancies": 0,
-                "Glucose": 11,
-                "BloodPressure": 20,
+                "Glucose": request.values["glucose"],
+                "BloodPressure": request.values["blood_pressure"],
                 "SkinThickness": 35,
-                "Insulin": 68,
-                "BMI": 0,
+                "Insulin": request.values["insulin"],
+                "BMI": request.values["bmi"],
                 "DiabetesPedigreeFunction": 2.288,
-                "Age": 50,
+                "Age": request.values["age"],
                 "Outcome": 1
             }]
         },
@@ -29,7 +30,8 @@ def aml():
 
     body = str.encode(json.dumps(data))
     url = "http://7ac69e26-f176-43dc-b695-668fd9800c4b.eastasia.azurecontainer.io/score"
-    api_key = "vtGt7uknpxFHb8P40n1AimaYMFvP2wdy"
+    #api_key = "vtGt7uknpxFHb8P40n1AimaYMFvP2wdy"
+    api_key = os.environ.get("AML_API_KEY")
     headers =  {"Content-Type": "application/json",
         "Authorization": ("Bearer " + api_key)}
     req = urllib.request.Request(url, body, headers)
