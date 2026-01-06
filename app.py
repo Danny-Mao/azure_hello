@@ -1,7 +1,5 @@
 from flask import Flask, request, render_template
-import json
-import urllib
-import os
+import json, urllib, os
 
 app = Flask(__name__)
 
@@ -9,7 +7,7 @@ app = Flask(__name__)
 def home():  #連到根目錄要執行的行為
     return render_template("form.html")
 
-@app.route("/aml", method = ["POST"])
+@app.route("/aml", methods = ["POST"])
 def aml():
     data = {
         "Inputs": {
@@ -27,18 +25,16 @@ def aml():
         },
         "GlobalParameters": {}
     }
-
     body = str.encode(json.dumps(data))
     url = "http://7ac69e26-f176-43dc-b695-668fd9800c4b.eastasia.azurecontainer.io/score"
     api_key = os.environ.get("AML_API_KEY")
     headers =  {"Content-Type": "application/json",
         "Authorization": ("Bearer " + api_key)}
     req = urllib.request.Request(url, body, headers)
-
     htmlstr = "<html><body><h2>Diabetes Prediction Result</h2>"
 
     try:
-        response = urllib.request.urlopen()
+        response = urllib.request.urlopen(req)
         result = json.loads(response.read())
         htmlstr = htmlstr + "結果為"
         if str(result["Results"]["WebServiceOutput0"][0]["Scored Labels"]) == "0.0":
@@ -52,8 +48,8 @@ def aml():
     
     return htmlstr
 
-@app.route("/<name>")  #角括號內可取任意名稱(變數名稱規則)
-def hello(name):  #參數同上一行角括號內
+@app.route("/<name>")
+def hello(name):
     return "Hello, " + name + ". How are you?"
 
 @app.route("/about")
